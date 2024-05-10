@@ -16,7 +16,7 @@ namespace RichTextEditor.Controller
             }
 
             // Save the file to a folder (e.g., "wwwroot/uploads")
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","richtexteditorfileupload", "uploads");
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
@@ -42,7 +42,7 @@ namespace RichTextEditor.Controller
             }
 
             // Save the image to a folder (e.g., "wwwroot/images")
-            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "richtexteditorfileupload", "images");
             if (!Directory.Exists(imagesFolder))
             {
                 Directory.CreateDirectory(imagesFolder);
@@ -69,7 +69,7 @@ namespace RichTextEditor.Controller
             }
 
             // Save the video to a folder (e.g., "wwwroot/videos")
-            var videosFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "videos");
+            var videosFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "richtexteditorfileupload", "videos");
             if (!Directory.Exists(videosFolder))
             {
                 Directory.CreateDirectory(videosFolder);
@@ -90,7 +90,7 @@ namespace RichTextEditor.Controller
         public IActionResult GetImagesFromFolder()
         {
             // Define the folder where images are stored
-            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "richtexteditorfileupload", "uploads");
 
             if (!Directory.Exists(imagesFolder))
             {
