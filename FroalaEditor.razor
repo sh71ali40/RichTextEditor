@@ -1,0 +1,49 @@
+﻿@using Microsoft.JSInterop
+<div>
+    
+    <textarea id="editor1" @ref="editorRef" ></textarea>
+</div>
+
+@code {
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    [Parameter] public string Content { get; set; } // Two-way bound content
+    [Parameter] public EventCallback<string> ContentChanged { get; set; } // Event callback for content changes
+    private ElementReference editorRef; // Reference to the Froala editor
+    private bool isInitialized = false; // Flag to check if the editor is initialized
+
+    // Initialize Froala after the component is rendered for the first time
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+    
+            var options = new { toolbarInline = false, placeholderText = "Type your content here..." };
+
+            await JSRuntime.InvokeVoidAsync("initializeFroalaEditor", "editor1", DotNetObjectReference.Create(this));
+
+    
+            if (!string.IsNullOrEmpty(Content)) {
+                await JSRuntime.InvokeVoidAsync("setFroalaContent", "editor1", Content);
+            }
+
+            isInitialized = true;
+        }
+    }
+
+
+    
+    [JSInvokable]
+    public async Task UpdateContent(string text)
+    {
+        if (isInitialized)
+        {
+            var newContent = text;
+
+            if (newContent != Content && ContentChanged.HasDelegate) {
+                await ContentChanged.InvokeAsync(newContent); // Invoke the ContentChanged event callback
+                Content = newContent; 
+            }
+        }
+    }
+
+}
