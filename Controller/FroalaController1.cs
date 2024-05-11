@@ -29,7 +29,7 @@ namespace RichTextEditor.Controller
             }
 
             // Return the URL to access the uploaded file
-            var fileUrl = $"/uploads/{file.FileName}";
+            var fileUrl = $"/richtexteditorfileupload/uploads/{file.FileName}";
             return Ok(new { link = fileUrl });
         }
 
@@ -55,7 +55,7 @@ namespace RichTextEditor.Controller
             }
 
             // Return the URL to access the uploaded image
-            var imageUrl = $"/images/{file.FileName}";
+            var imageUrl = $"/richtexteditorfileupload/images/{file.FileName}";
             return Ok(new { link = imageUrl });
         }
 
@@ -82,7 +82,7 @@ namespace RichTextEditor.Controller
             }
 
             // Return the URL to access the uploaded video
-            var videoUrl = $"/videos/{file.FileName}";
+            var videoUrl = $"/richtexteditorfileupload/videos/{file.FileName}";
             return Ok(new { link = videoUrl });
         }
 
@@ -90,7 +90,7 @@ namespace RichTextEditor.Controller
         public IActionResult GetImagesFromFolder()
         {
             // Define the folder where images are stored
-            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "richtexteditorfileupload", "uploads");
+            var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "richtexteditorfileupload", "images");
 
             if (!Directory.Exists(imagesFolder))
             {
@@ -101,7 +101,7 @@ namespace RichTextEditor.Controller
             var imageFiles = Directory.GetFiles(imagesFolder)
                 .Select(Path.GetFileName) // Get the file names
                 .Where(f => f.EndsWith(".jpg") || f.EndsWith(".png") || f.EndsWith(".jpeg")) // Filter only images
-                .Select(f => new { url = $"/uploads/{f}", thumb = $"/uploads/{f}" }); // Generate the URL
+                .Select(f => new { url = $"/richtexteditorfileupload/images/{f}", thumb = $"/richtexteditorfileupload/images/{f}" }); // Generate the URL
 
             return Ok(imageFiles); // Return the list of image URLs
         }
